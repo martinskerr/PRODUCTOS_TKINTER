@@ -70,7 +70,7 @@ def nuevo_producto():
             return
 
         if not expiracion.get():
-            messagebox.showerror("Error", "la fecha de expiracion del producto es obligatoria")
+            messagebox.showerror("Error", "la fecha de expiracion del producto es obligatoria.")
             return
 
         if not tipoProducto.get():
