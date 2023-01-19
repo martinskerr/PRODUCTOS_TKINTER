@@ -2,6 +2,8 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import csv
+import os
 #---------------------------------------------------Imports-----------------------------------!!
 
 #---------------------------------------------------TABLAS BASE DE DATOS-----------------------------------!!
@@ -87,7 +89,7 @@ def nuevo_producto():
     lnombre.grid(row=0, column=0)
     nombre.grid(row=0, column=1)
 
-    lfecha_de_ingreso = Label(top, text='fecha_de_ingreso')
+    lfecha_de_ingreso = Label(top, text='Fecha de ingreso')
     fecha_de_ingreso = Entry(top, width=40)
     lfecha_de_ingreso.grid(row=1, column=0)
     fecha_de_ingreso.grid(row=1, column=1)
@@ -97,7 +99,7 @@ def nuevo_producto():
     lexpiracion.grid(row=2, column=0)
     expiracion.grid(row=2, column=1)
 
-    ltipoProducto = Label(top, text='TipoProducto')
+    ltipoProducto = Label(top, text='Tipo Producto')
     tipoProducto = Entry(top, width=40)
     ltipoProducto.grid(row=3, column=0)
     tipoProducto.grid(row=3, column=1)
@@ -128,12 +130,34 @@ def eliminar_producto():
     else:
         pass
 
+def generador_excel():
+    # Datos a escribir en el archivo CSV
+    data = [[],
+            [],
+            [],
+            []]
+
+    # Abre el archivo en modo escritura
+    with open('data.csv', 'w', newline='') as file:
+        # Crea un objeto CSV writer
+        csv_writer = csv.writer(file)
+        # Escribir cada fila de datos en el archivo
+        for row in data:
+            csv_writer.writerow(row)
+            print(row)
+    os.startfile('data.csv')
+
+
+
 
 btn = Button(root, text='Nuevo Producto', command=nuevo_producto)
 btn.grid(column=0, row=0)
 
 btn_eliminar = Button(root, text='Eliminar Producto', command=eliminar_producto)
 btn_eliminar.grid(column=1, row=0)
+
+btn_generar_csv = Button(root, text='Generar archivo CSV - EXCEL', command=generador_excel)
+btn_generar_csv.grid(column=2, row=0)
 
 tree = ttk.Treeview(root)
 tree['columns'] = ('NombreProducto','fecha_de_ingreso', 'Cantidad', 'Expiracion', 'TipoProducto')
