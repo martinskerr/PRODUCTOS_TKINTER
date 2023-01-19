@@ -13,7 +13,7 @@ c.execute("""
     CREATE TABLE if not exists PRODUCTOS(
         id integer PRIMARY KEY AUTOINCREMENT,
         nombre_producto TEXT NOT NULL,
-        fecha_ingreso_producto TEXT NOT NULL,
+        fecha_de_ingreso TEXT NOT NULL,
         cantidad_productos INTEGER NOT NULL,
         expiracion INTEGER NOT NULL,
         tipo_producto TEXT NOT NULL
@@ -26,15 +26,6 @@ c.execute("""
 #-----------------------------------creacion interfaz grafica con tkinter-----------------------------------!!
 root = Tk()
 root.title('BASE DE DATOS: INGRESO PRODUCTOS')
-
-def eliminarTablaProductos():
-    result = c.execute("DROP TABLE PRODUCTOS").fetchall()
-    conn.commit()
-    if result:
-        messagebox.showinfo("Eliminar tabla", "Tabla eliminada exitosamente")
-    else:
-        messagebox.showerror("Error", "No se pudo eliminar la tabla")
-
 
 def renderProductos():
     rows = c.execute("SELECT * FROM PRODUCTOS").fetchall()
@@ -143,9 +134,6 @@ btn.grid(column=0, row=0)
 
 btn_eliminar = Button(root, text='Eliminar Producto', command=eliminar_producto)
 btn_eliminar.grid(column=1, row=0)
-
-btn_eliminar_tabla = Button(root, text='Eliminar Tabla PRODUCTOS', command=eliminarTablaProductos)
-btn_eliminar_tabla.grid(column=2, row=0)
 
 tree = ttk.Treeview(root)
 tree['columns'] = ('NombreProducto','fecha_de_ingreso', 'Cantidad', 'Expiracion', 'TipoProducto')
