@@ -47,9 +47,7 @@ def renderProductos():
 
 def generador_excel():
     # Datos a escribir en el archivo CSV
-    data = [['Nombre Producto','Fecha de ingreso','Cantidad','Expiracion', 'Tipo Producto'],
-            ['nombre'],['fecha_de_ingreso'], ['cantidad'], ['expiracion'], ['tipoProducto']
-            ]
+    data = [['Nombre Producto','Fecha de ingreso','Cantidad','Expiracion', 'Tipo Producto']]
 
     # Abre el archivo en modo escritura
     with open('data.csv', 'w', newline='') as file:
@@ -103,6 +101,9 @@ def nuevo_producto():
         except ValueError:
             # Mostrar un mensaje de error
             messagebox.showerror("Error", "El formato de fecha de expiracion es incorrecto. Debe ser dd/mm/yyyy.")
+
+
+    #creacion de las tablas con funcion grid y tree de tkinter 
 
     top = Toplevel()
     top.title("Nuevo Producto")
