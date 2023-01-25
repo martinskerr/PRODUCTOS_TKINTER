@@ -9,9 +9,9 @@ c.execute("""
     CREATE TABLE if not exists PRODUCTOS(
         id integer PRIMARY KEY AUTOINCREMENT,
         nombre_producto TEXT NOT NULL,
-        fecha_de_ingreso TEXT NOT NULL,
+        fecha_de_ingreso DATE NOT NULL,
         cantidad_productos INTEGER NOT NULL,
-        expiracion INTEGER NOT NULL,
+        expiracion DATE NOT NULL,
         tipo_producto TEXT NOT NULL
     )
 """)

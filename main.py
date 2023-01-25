@@ -20,7 +20,7 @@ def main():
 
     #tiempo actual
     def tiempo_actual():
-        current_date = datetime.now().date()
+        current_date = datetime.now().date().strftime("%d-%m-%Y")
         return current_date
 
     def renderProductos():
@@ -33,12 +33,17 @@ def main():
 
 #genera un excel con las tablas, aun no genera automaticamente lo que trae las tablas
 
+
     def generador_excel():
-        # Datos a escribir en el archivo CSV
+        # Obtener los productos de la tabla
+        products = c.execute("SELECT * FROM PRODUCTOS").fetchall()
+
+        # Crear una lista para almacenar los datos del archivo CSV
         data = [['Nombre Producto','Fecha de ingreso','Cantidad','Expiracion', 'Tipo Producto']]
-        
 
-
+        # Iterar sobre los productos y agregarlos a la lista de datos
+        for product in products:
+            data.append([product[1], product[2], product[3], product[4], product[5]])
 
         # Abre el archivo en modo escritura
         with open('data.csv', 'w', newline='') as file:
@@ -47,7 +52,8 @@ def main():
             # Escribir cada fila de datos en el archivo
             for row in data:
                 csv_writer.writerow(row)
-                print(row)
+                
+        # Abrir el archivo generado
         os.startfile('data.csv')
 
     def insertar(productos):
@@ -143,6 +149,7 @@ def main():
 
         top.mainloop()
 
+    
 
     btn = Button(root, text='Nuevo Producto', command=nuevo_producto)
     btn.grid(column=0, row=0)
@@ -169,9 +176,11 @@ def main():
     tree.heading("Expiracion", text='Expiracion')
     tree.heading("TipoProducto", text='Tipo Producto')
 
-    tree.grid(column=0, row=1, columnspan=3)
-
+    tree.grid(column=1, row=1, columnspan=3,sticky="nsew", padx=10, pady=10)
+    root.grid_columnconfigure(0, weight=2)
+    root.grid_rowconfigure(1, weight=2) 
     renderProductos()
+
     root.mainloop()
 
 #inicializacion del software
